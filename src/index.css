@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root {
+  --paper: #f2f5ef;
+  --ink: #1d342b;
+  --forest: #285a45;
+  --muted: #6f8075;
+  --line: #dce5dc;
+  --line-dark: #cbd8cd;
+  --tomato: #df644e;
+  --tomato-dark: #b74635;
+  --sans: 'DM Sans', 'Avenir Next', sans-serif;
+  --serif: 'Playfair Display', Georgia, serif;
+  --mono: 'DM Mono', 'SFMono-Regular', Consolas, monospace;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+  font-weight: 400;
+}
+
+* { box-sizing: border-box; }
+html { min-width: 320px; background: var(--paper); }
+body { min-width: 320px; min-height: 100vh; margin: 0; background-color: var(--paper); background-image: radial-gradient(rgba(84, 119, 91, 0.10) 0.6px, transparent 0.6px); background-size: 13px 13px; }
+button, input, select { font: inherit; }
+button:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
+::selection { color: #fff; background: var(--forest); }
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within { scroll-behavior: auto; }
+}
