@@ -75,16 +75,16 @@ function App() {
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <div className="app-shell">
         <header className="site-header">
-          <Link className="brand" to="/" aria-label="Fielddex home">
+          <Link className="brand" to="/" aria-label="Pokédex home">
             <span className="brand-mark" aria-hidden="true"><span /></span>
-            <span className="brand-name">FIELDDEX</span>
-            <span className="brand-edition">KANTO FIELD GUIDE</span>
+            <span className="brand-name">Pokédex</span>
+            <span className="brand-edition">Kanto collection</span>
           </Link>
           <div className="header-meta">
             <span className={`connection-dot ${collection.isUsingMockData ? 'is-offline' : ''}`} />
-            <span>{collection.isUsingMockData ? 'LOCAL FIELD NOTES' : 'POKEAPI / LIVE'}</span>
+            <span>{collection.isUsingMockData ? 'Offline collection' : 'Live PokéAPI data'}</span>
             <span className="header-divider" />
-            <span>NO. 001—151</span>
+            <span>First 151</span>
           </div>
         </header>
 
@@ -95,8 +95,8 @@ function App() {
         </Routes>
 
         <footer className="site-footer">
-          <span>FIELDDEX / KANTO ARCHIVE</span>
-          <span>DATA VIA <a href="https://pokeapi.co/" target="_blank" rel="noreferrer">POKÉAPI</a></span>
+          <span>Happy exploring!</span>
+          <span>Data from <a href="https://pokeapi.co/" target="_blank" rel="noreferrer">PokéAPI</a></span>
         </footer>
       </div>
     </BrowserRouter>
@@ -141,55 +141,51 @@ function Explorer({ pokemon, status, isUsingMockData, notice, progress, retry }:
     <main className="page-content">
       <section className="intro-row">
         <div>
-          <p className="eyebrow"><span className="eyebrow-mark">01</span> A LIVING INDEX OF KANTO</p>
-          <h1>Every Pokémon<br /><em>has a story.</em></h1>
+          <p className="eyebrow"><span className="eyebrow-mark">01</span> Kanto Pokédex</p>
+          <h1>Meet the Pokémon<br /><em>of Kanto!</em></h1>
         </div>
-        <p className="intro-note">A field guide to the first 151.<br />Find a familiar face or meet someone new.</p>
-        <div className="intro-stamp" aria-hidden="true">
-          <span>EST.</span><strong>1996</strong><span>PALLET TOWN</span>
-        </div>
+        <p className="intro-note">The first 151 are here.<br />Search by name or pick a type to explore.</p>
       </section>
 
       {notice && (
         <div className="notice-banner" role="status">
           <span>{notice}</span>
-          <button type="button" onClick={retry}>RETRY LIVE DATA <span aria-hidden="true">↗</span></button>
+          <button type="button" onClick={retry}>Try again <span aria-hidden="true">↗</span></button>
         </div>
       )}
 
       {status === 'loading' ? (
         <section className="loading-panel" aria-live="polite">
           <div className="loading-symbol" aria-hidden="true"><span /></div>
-          <p className="eyebrow">PREPARING YOUR FIELD GUIDE</p>
-          <h2>Gathering the collection</h2>
-          <p>Loading Pokémon details and field marks from PokéAPI.</p>
+          <p className="eyebrow">One moment!</p>
+          <h2>Loading your Pokédex</h2>
+          <p>We're gathering details for the Kanto Pokémon.</p>
           <progress className="collection-progress" max={100} value={progress} aria-label="Collection load progress" />
-          <span className="progress-caption">{progress}% COMPLETE</span>
+          <span className="progress-caption">{progress}% loaded</span>
         </section>
       ) : (
         <div className="catalog-layout">
           <aside className="filter-rail">
             <div className="rail-heading">
-              <span className="eyebrow">FIELD TOOLS</span>
-              <span className="rail-index">A—Z</span>
+              <span className="eyebrow">Explore</span>
+              <span className="rail-index">001—151</span>
             </div>
-            <label className="search-label" htmlFor="pokemon-search">FIND A POKÉMON</label>
+            <label className="search-label" htmlFor="pokemon-search">Search Pokémon</label>
             <div className="search-control">
               <span aria-hidden="true">⌕</span>
               <input
                 id="pokemon-search"
                 type="search"
-                placeholder="Try Pikachu..."
+                placeholder="Try Pikachu"
                 value={query}
                 onChange={(event) => setQuery(event.target.value.toLowerCase())}
               />
-              <kbd>/</kbd>
             </div>
 
             <div className="filter-heading">
-              <span>TYPE</span>
+              <span>Choose types</span>
               {selectedTypes.length > 0 && (
-                <button type="button" onClick={() => setSelectedTypes([])}>CLEAR</button>
+                <button type="button" onClick={() => setSelectedTypes([])}>Clear</button>
               )}
             </div>
             <div className="type-filter-list">
@@ -209,7 +205,7 @@ function Explorer({ pokemon, status, isUsingMockData, notice, progress, retry }:
 
             <div className="rail-footnote">
               <span className="rail-rule" />
-              <p>SELECT MULTIPLE TYPES<br />TO BROADEN YOUR SEARCH</p>
+              <p>Pick more than one to see Pokémon with either type.</p>
             </div>
           </aside>
 
@@ -223,7 +219,7 @@ function Explorer({ pokemon, status, isUsingMockData, notice, progress, retry }:
                   className={view === 'gallery' ? 'is-active' : ''}
                   onClick={() => setView('gallery')}
                 >
-                  <span className="grid-glyph" aria-hidden="true">▦</span> GALLERY
+                  <span className="grid-glyph" aria-hidden="true">▦</span> Gallery
                 </button>
                 <button
                   type="button"
@@ -232,14 +228,14 @@ function Explorer({ pokemon, status, isUsingMockData, notice, progress, retry }:
                   className={view === 'list' ? 'is-active' : ''}
                   onClick={() => setView('list')}
                 >
-                  <span className="list-glyph" aria-hidden="true">☰</span> LIST
+                  <span className="list-glyph" aria-hidden="true">☰</span> List
                 </button>
               </div>
               <div className="sort-controls">
-                <label htmlFor="sort-select">SORT BY</label>
+                <label htmlFor="sort-select">Sort by</label>
                 <select id="sort-select" value={sortBy} onChange={(event) => setSortBy(event.target.value as 'id' | 'name')}>
-                  <option value="id">NUMBER</option>
-                  <option value="name">NAME</option>
+                  <option value="id">Number</option>
+                  <option value="name">Name</option>
                 </select>
                 <button
                   type="button"
@@ -254,16 +250,16 @@ function Explorer({ pokemon, status, isUsingMockData, notice, progress, retry }:
             </div>
 
             <div className="results-caption">
-              <span>{visiblePokemon.length.toString().padStart(3, '0')} SPECIMENS</span>
-              <span>{selectedTypes.length ? `${selectedTypes.length} TYPE FILTER${selectedTypes.length === 1 ? '' : 'S'}` : 'KANTO REGION'}</span>
+              <span>{visiblePokemon.length} Pokémon</span>
+              <span>{selectedTypes.length ? `${selectedTypes.length} type${selectedTypes.length === 1 ? '' : 's'} selected` : 'All types'}</span>
             </div>
 
             {visiblePokemon.length === 0 ? (
               <div className="empty-state">
                 <span className="empty-number">—</span>
-                <h2>No field notes found.</h2>
+                <h2>No Pokémon found</h2>
                 <p>Try another name or clear a type filter.</p>
-                <button type="button" onClick={() => { setQuery(''); setSelectedTypes([]) }}>RESET SEARCH</button>
+                <button type="button" onClick={() => { setQuery(''); setSelectedTypes([]) }}>Clear search</button>
               </div>
             ) : view === 'gallery' ? (
               <div className="pokemon-grid">
@@ -276,8 +272,8 @@ function Explorer({ pokemon, status, isUsingMockData, notice, progress, retry }:
             )}
 
             <div className="results-footer">
-              <span>{isUsingMockData ? 'LOCAL SAMPLE / API RETRY AVAILABLE' : 'DATA SYNCHRONIZED WITH POKÉAPI'}</span>
-              <span>01 — {String(visiblePokemon.length).padStart(3, '0')}</span>
+              <span>{isUsingMockData ? 'Showing sample Pokémon' : 'Pokémon from PokéAPI'}</span>
+              <span>Showing {visiblePokemon.length} of {pokemon.length}</span>
             </div>
           </section>
         </div>
@@ -290,7 +286,7 @@ function PokemonCard({ pokemon }: { pokemon: Pokemon }) {
   return (
     <Link className="pokemon-card" to={`/pokemon/${pokemon.name}`}>
       <div className="card-topline">
-        <span>FIELD No. {String(pokemon.id).padStart(3, '0')}</span>
+        <span>#{String(pokemon.id).padStart(3, '0')}</span>
         <span className="card-arrow" aria-hidden="true">↗</span>
       </div>
       <div className="card-art"><PokemonArtwork pokemon={pokemon} /></div>
@@ -326,11 +322,11 @@ function PokemonDetail({ pokemon, status, isUsingMockData }: CollectionProps) {
   if (!selectedPokemon) {
     return (
       <main className="detail-page page-content">
-        <Link to="/" className="back-link">← BACK TO FIELD GUIDE</Link>
+        <Link to="/" className="back-link">← All Pokémon</Link>
         <section className="detail-message" aria-live="polite">
-          <p className="eyebrow">{status === 'loading' ? 'FIELD GUIDE LOADING' : 'ENTRY NOT FOUND'}</p>
+          <p className="eyebrow">{status === 'loading' ? 'Loading your Pokédex' : 'Pokémon not found'}</p>
           <h1>{status === 'loading' ? 'Finding this Pokémon...' : 'No record in this field guide.'}</h1>
-          <p>{status === 'loading' ? 'The catalogue is still gathering its entries.' : 'Return to the collection to explore the Kanto index.'}</p>
+          <p>{status === 'loading' ? 'Just a moment while the collection loads.' : 'Head back to the Pokédex and choose another Pokémon.'}</p>
         </section>
       </main>
     )
@@ -339,33 +335,37 @@ function PokemonDetail({ pokemon, status, isUsingMockData }: CollectionProps) {
   const currentIndex = pokemon.findIndex((item) => item.id === selectedPokemon.id)
   const previousPokemon = pokemon[(currentIndex - 1 + pokemon.length) % pokemon.length]
   const nextPokemon = pokemon[(currentIndex + 1) % pokemon.length]
+  const displayName = selectedPokemon.name.charAt(0).toUpperCase() + selectedPokemon.name.slice(1)
+  const typeDescription = selectedPokemon.types.length > 1
+    ? `a Pokémon with ${selectedPokemon.types.join(' and ')} types`
+    : `${/^[aeiou]/i.test(selectedPokemon.types[0]) ? 'an' : 'a'} ${selectedPokemon.types[0]}-type Pokémon`
 
   return (
     <main className="detail-page page-content">
       <div className="detail-topline">
-        <Link to="/" className="back-link">← BACK TO FIELD GUIDE</Link>
-        <span className="detail-source">{isUsingMockData ? 'LOCAL FIELD NOTES' : 'POKÉAPI RECORD'}</span>
+        <Link to="/" className="back-link">← All Pokémon</Link>
+        <span className="detail-source">{isUsingMockData ? 'Sample data' : 'Live PokéAPI data'}</span>
       </div>
 
       <section className="detail-hero">
         <div className="detail-art-panel">
-          <div className="detail-art-index">KANTO / {String(selectedPokemon.id).padStart(3, '0')}</div>
+          <div className="detail-art-index">Kanto Pokédex #{String(selectedPokemon.id).padStart(3, '0')}</div>
           <PokemonArtwork pokemon={selectedPokemon} />
           <span className="art-orbit art-orbit-one" aria-hidden="true" />
           <span className="art-orbit art-orbit-two" aria-hidden="true" />
-          <span className="art-caption">SPECIMEN STUDY</span>
+          <span className="art-caption">Pokédex entry</span>
         </div>
         <div className="detail-copy">
-          <p className="eyebrow"><span className="eyebrow-mark">{String(selectedPokemon.id).padStart(3, '0')}</span> KANTO FIELD RECORD</p>
+          <p className="eyebrow"><span className="eyebrow-mark">#{String(selectedPokemon.id).padStart(3, '0')}</span> Kanto Pokédex</p>
           <h1>{selectedPokemon.name}</h1>
           <div className="detail-types">
             {selectedPokemon.types.map((type) => <span className={`type-tag type-${type}`} key={type}>{type}</span>)}
           </div>
-          <p className="detail-deck">A closer look at one remarkable member of the Kanto collection.</p>
+          <p className="detail-deck">Meet {displayName}, {typeDescription}.</p>
           <div className="measurements">
-            <div><span>HEIGHT</span><strong>{(selectedPokemon.height / 10).toFixed(1)} <small>M</small></strong></div>
-            <div><span>WEIGHT</span><strong>{(selectedPokemon.weight / 10).toFixed(1)} <small>KG</small></strong></div>
-            <div><span>INDEX</span><strong>#{String(selectedPokemon.id).padStart(3, '0')}</strong></div>
+            <div><span>Height</span><strong>{(selectedPokemon.height / 10).toFixed(1)} <small>m</small></strong></div>
+            <div><span>Weight</span><strong>{(selectedPokemon.weight / 10).toFixed(1)} <small>kg</small></strong></div>
+            <div><span>Pokédex no.</span><strong>#{String(selectedPokemon.id).padStart(3, '0')}</strong></div>
           </div>
         </div>
       </section>
@@ -373,8 +373,8 @@ function PokemonDetail({ pokemon, status, isUsingMockData }: CollectionProps) {
       <section className="detail-lower">
         <div className="stats-section">
           <div className="section-heading">
-            <div><p className="eyebrow">OBSERVATION / 01</p><h2>Base stats</h2></div>
-            <span>FIELD MEASUREMENTS</span>
+            <div><p className="eyebrow">A few numbers</p><h2>Base stats</h2></div>
+            <span>Out of 255</span>
           </div>
           <div className="stat-list">
             {selectedPokemon.stats.map((stat) => (
@@ -387,14 +387,14 @@ function PokemonDetail({ pokemon, status, isUsingMockData }: CollectionProps) {
           </div>
         </div>
         <div className="navigation-section">
-          <p className="eyebrow">CONTINUE EXPLORING</p>
-          <h2>Next in the field guide</h2>
+          <p className="eyebrow">Keep exploring</p>
+          <h2>Meet another Pokémon</h2>
           <div className="detail-navigation">
             <button type="button" onClick={() => navigate(`/pokemon/${previousPokemon.name}`)} aria-label={`Previous Pokémon: ${previousPokemon.name}`}>
-              <span aria-hidden="true">←</span><span><small>PREVIOUS</small>{previousPokemon.name}</span>
+              <span aria-hidden="true">←</span><span><small>Previous</small>{previousPokemon.name}</span>
             </button>
             <button type="button" onClick={() => navigate(`/pokemon/${nextPokemon.name}`)} aria-label={`Next Pokémon: ${nextPokemon.name}`}>
-              <span><small>NEXT</small>{nextPokemon.name}</span><span aria-hidden="true">→</span>
+              <span><small>Next</small>{nextPokemon.name}</span><span aria-hidden="true">→</span>
             </button>
           </div>
         </div>
